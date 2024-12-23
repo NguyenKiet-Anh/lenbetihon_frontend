@@ -156,6 +156,44 @@ function Navbar() {
                             Trang chủ
                         </NavLink>
                     </li>
+                    {
+                        !isLoggedIn ? (
+                            <li className="lg:hidden">
+                                <NavLink
+                                    to="/login"                                    
+                                >
+                                    <p className='font-semibold'>Đăng nhập</p>
+                                </NavLink>
+                            </li>
+                        ) : (
+                            <>
+                                <li className="lg:hidden">
+                                    <NavLink
+                                        to="/login"                                        
+                                        onClick={logoutHandler}
+                                    >
+                                        <p className='font-semibold'>Đăng xuất</p>
+                                    </NavLink>
+                                </li>
+
+                                <li className="lg:hidden">
+                                    <NavLink
+                                        to="/cart"                                        
+                                    >
+                                        <p className='font-semibold'>Giỏ hàng</p>
+                                    </NavLink>
+                                </li>
+
+                                <li className="lg:hidden">
+                                    <NavLink
+                                        to="/wishlist"
+                                    >
+                                        <p className='font-semibold'>Yêu thích</p>
+                                    </NavLink>
+                                </li>
+                            </>                            
+                        )                        
+                    }
                     <li>
                         <div
                             class="dropdown inline-block relative"
@@ -196,10 +234,7 @@ function Navbar() {
                                 </li>
                             </ul>
                         </div>
-                    </li>
-                    <li>
-                        <NavLink></NavLink>
-                    </li>
+                    </li>                    
                 </ul>
             </div>
             <div className="flex items-center justify-center text-2xl gap-4 -mt-1">

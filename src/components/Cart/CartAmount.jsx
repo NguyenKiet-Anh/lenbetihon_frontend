@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRef } from 'react';
 import { useAuth } from '../../AuthContext';
 import useCartContext from '../../store/cart-context';
@@ -8,9 +8,14 @@ const CartAmount = (props) => {
     const { userInfo } = useAuth();
     const { checkout } = useCartContext();    
 
+    const [isCash, setIsCash] = useState(true);
+    const handleCheckboxchange = (event) => {
+        setIsCash(event.target.checked)
+    };
+
     const checkoutHandler = async () => {
         try {
-            // Prepare data before sending back to server
+            // Prepare data before sending back to server - reset user's cart
             const maCaArray = props.items.map((item) => item.ca_betta);
             const maThucanArray = props.items.map((item) => item.thucan);
             const response = await fetch('https://lenbetihon-backend.onrender.com/check_out/', {
@@ -36,17 +41,17 @@ const CartAmount = (props) => {
                     const year = currentTime.getFullYear();
 
                     // Gọi API để lấy và tải file PDF
-                    const pdfResponse = await fetch(`https://lenbetihon-backend.onrender.com/export_hoadon_pdf/${data.ma_hoa_don}/`);
-                    const pdfBlob = await pdfResponse.blob();
+                    const emailResponse = await fetch(`https://lenbetihon-backend.onrender.com/export_hoadon_pdf/${data.ma_hoa_don}/`);
+                    // const pdfBlob = await pdfResponse.blob();
   
                     // Tạo URL và tải về
-                    const url = window.URL.createObjectURL(pdfBlob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', `hoadon_${data.ma_hoa_don}_${day}_${month}_${year}.pdf`);
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    // const url = window.URL.createObjectURL(pdfBlob);
+                    // const link = document.createElement('a');
+                    // link.href = url;
+                    // link.setAttribute('download', `hoadon_${data.ma_hoa_don}_${day}_${month}_${year}.pdf`);
+                    // document.body.appendChild(link);
+                    // link.click();
+                    // document.body.removeChild(link);
                     
                     checkout();
                 }                
@@ -107,10 +112,10 @@ const CartAmount = (props) => {
             const { status, message } = data;
             if (status === 'success') {
                 // If payment is successful clear cart
-                alert('Payment successfully!');
+                alert('Thanh toán thành công!');
                 checkoutHandler();
             } else {
-                alert('Payment failed!');
+                alert('Thanh toán thất bại! Đã xảy ra lỗi!');
             }
         };
         socketRef.current.onerror = (error) => {
@@ -135,11 +140,30 @@ const CartAmount = (props) => {
                     <p className="text-sm text-gray-700">including VAT</p>
                 </div>
             </div>
+
+            <div className='pt-4'>
+                <label>
+                    <input 
+                        type="checkbox" 
+                        checked={isCash}
+                        onChange={handleCheckboxchange} 
+                        className='mr-2'
+                    />
+                    Thanh toán khi nhận hàng
+                </label>
+            </div>            
+
             <button
-                onClick={handlePayment}
+                onClick={() => {
+                    if (isCash) {
+                        alert("Đã lưu lại thông tin hóa đơn. Thanh toán khi nhận hàng!");
+                        checkoutHandler();
+                    } else {
+                        handlePayment()
+                    }}}
                 className="mt-6 w-full rounded-md bg-primary py-1.5 font-medium text-blue-50 hover:bg-white hover:text-primary transition-all"
             >
-                Check out
+                Thanh toán
             </button>
         </div>
     );
