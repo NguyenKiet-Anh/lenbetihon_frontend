@@ -107,9 +107,10 @@ const CartAmount = (props) => {
             const { status, message } = data;
             if (status === 'success') {
                 // If payment is successful clear cart
+                alert('Payment successfully!');
                 checkoutHandler();
             } else {
-                alert('Payment failed: ' + message);
+                alert('Payment failed!');
             }
         };
         socketRef.current.onerror = (error) => {
