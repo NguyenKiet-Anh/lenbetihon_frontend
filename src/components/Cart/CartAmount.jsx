@@ -95,7 +95,7 @@ const CartAmount = (props) => {
     // Section for socket connection
     const socketRef = useRef(null);
     function connectWebSocket(orderId) {
-        const socketUrl = `ws://lenbetihon-backend.onrender.com/ws/payment/${orderId}/`;
+        const socketUrl = `wss://lenbetihon-backend.onrender.com/ws/payment/${orderId}/`;
         console.log("socket URL: ", socketUrl);
         socketRef.current = new WebSocket(socketUrl)
         socketRef.current.onopen = () => {
