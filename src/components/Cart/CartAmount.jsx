@@ -33,25 +33,25 @@ const CartAmount = (props) => {
             if (response.ok) {
                 const data = await response.json();
                 if (data.success){
-                    alert('Thanh toán thành công!');
-                    // Chuẩn bị thời gian để tạo báo cáo
-                    const currentTime = new Date();
-                    const day = currentTime.getDate();
-                    const month = currentTime.getUTCMonth() + 1;
-                    const year = currentTime.getFullYear();
+                    alert('Đã xử lý! Hãy kiểm tra email!');
+                    // // Prepare for create report
+                    // const currentTime = new Date();
+                    // const day = currentTime.getDate();
+                    // const month = currentTime.getUTCMonth() + 1;
+                    // const year = currentTime.getFullYear();
 
-                    // Gọi API để lấy và tải file PDF
+                    // Send bills via email
                     const emailResponse = await fetch(`https://lenbetihon-backend.onrender.com/export_hoadon_pdf/${data.ma_hoa_don}/`);
-                    const pdfBlob = await pdfResponse.blob();
+                    // const pdfBlob = await pdfResponse.blob();
   
-                    // Tạo URL và tải về
-                    const url = window.URL.createObjectURL(pdfBlob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', `hoadon_${data.ma_hoa_don}_${day}_${month}_${year}.pdf`);
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    // // Tạo URL và tải về
+                    // const url = window.URL.createObjectURL(pdfBlob);
+                    // const link = document.createElement('a');
+                    // link.href = url;
+                    // link.setAttribute('download', `hoadon_${data.ma_hoa_don}_${day}_${month}_${year}.pdf`);
+                    // document.body.appendChild(link);
+                    // link.click();
+                    // document.body.removeChild(link);
                     
                     checkout();
                 }                
