@@ -42,16 +42,16 @@ const CartAmount = (props) => {
 
                     // Gọi API để lấy và tải file PDF
                     const emailResponse = await fetch(`https://lenbetihon-backend.onrender.com/export_hoadon_pdf/${data.ma_hoa_don}/`);
-                    // const pdfBlob = await pdfResponse.blob();
+                    const pdfBlob = await pdfResponse.blob();
   
                     // Tạo URL và tải về
-                    // const url = window.URL.createObjectURL(pdfBlob);
-                    // const link = document.createElement('a');
-                    // link.href = url;
-                    // link.setAttribute('download', `hoadon_${data.ma_hoa_don}_${day}_${month}_${year}.pdf`);
-                    // document.body.appendChild(link);
-                    // link.click();
-                    // document.body.removeChild(link);
+                    const url = window.URL.createObjectURL(pdfBlob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', `hoadon_${data.ma_hoa_don}_${day}_${month}_${year}.pdf`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                     
                     checkout();
                 }                
