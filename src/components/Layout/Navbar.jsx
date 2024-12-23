@@ -138,9 +138,9 @@ function Navbar() {
     };
 
     return (
-        <nav className="flex fixed z-10 top-0 justify-between items-center w-full mx-auto py-4 px-8 shadow-lg bg-white">
+        <nav className="flex fixed z-10 top-0 justify-between items-center w-full mx-auto py-1 px-8 shadow-lg bg-white">
             <Link to={'/'}>
-                <img src={Logo} className='w-[100px] h-[90px] rounded-full'></img>
+                <img src={Logo} className='w-60px] h-[55px] rounded-full'></img>
             </Link>
             <div
                 ref={toggleNavbar}

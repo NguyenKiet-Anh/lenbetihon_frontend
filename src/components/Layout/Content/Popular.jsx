@@ -16,7 +16,7 @@ const Popular = () => {
     fetchData();
   }, []);
   return (
-    <div className="mt-40 md:p-10 p-2.5 mt-8">
+    <div className="mt-40 md:px-10 pt-20 mt-8">
         <h1 className="text-center font-bold text-4xl mb-8">BỘ SƯU TẬP MÓC KHÓA ĐẸP NHẤT 2024</h1>
         <div className="w-fit mx-auto grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center md:gap-y-20 gap-y-6 md:gap-x-14 gap-x-4">
             {dataProduct.map((item) => {
