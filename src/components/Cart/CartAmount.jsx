@@ -41,7 +41,7 @@ const CartAmount = (props) => {
                     // const year = currentTime.getFullYear();
 
                     // Send bills via email
-                    const emailResponse = await fetch(`https://lenbetihon-backend.onrender.com/export_hoadon_pdf/${data.ma_hoa_don}/`);
+                    // const emailResponse = await fetch(`https://lenbetihon-backend.onrender.com/export_hoadon_pdf/${data.ma_hoa_don}/`);
                     // const pdfBlob = await pdfResponse.blob();
   
                     // // Tạo URL và tải về
