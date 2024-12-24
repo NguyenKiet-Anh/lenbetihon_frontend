@@ -13,7 +13,7 @@ function Signup() {
             alertShownRef.current = true;
 
             try {
-                const response = await fetch('http://lenbetihon-backend.onrender.com/signup/', {
+                const response = await fetch('https://lenbetihon-backend.onrender.com/signup/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
