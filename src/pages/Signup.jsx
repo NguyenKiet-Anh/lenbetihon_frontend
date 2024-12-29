@@ -2,56 +2,52 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function Signup() {
-    const alertShownRef = useRef(false);
+    // const alertShownRef = useRef(false);
 
-    const location = useLocation();
+    // const location = useLocation();
     const navigate = useNavigate();
-    const token = new URLSearchParams(location.search).get('token');
+    // const token = new URLSearchParams(location.search).get('token');
 
-    const handleVerification = useCallback(async () => {
-        if (!alertShownRef.current) {
-            alertShownRef.current = true;
+    // const handleVerification = useCallback(async () => {
+    //     if (!alertShownRef.current) {
+    //         alertShownRef.current = true;
 
-            try {
-                const response = await fetch('https://lenbetihon-backend.onrender.com/signup/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        activate: true,
-                        token: token,
-                    }),
-                });
+    //         try {                
+    //             const response = await fetch(`https://lenbetihon-backend.onrender.com/signup/verify/?token=${token}`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //             });
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 console.log("data: ", data);
+    //                 if (data.success) {
+    //                     alert('Xác nhận thành công!!! Bạn có thể đăng nhập từ bây giờ!');
+    //                     navigate('/login');
+    //                 } else {
+    //                     if (data.message === 'Cached data not found or expired.') {
+    //                         alert('Link xác nhận của bạn đã hết hạn!!!');
+    //                     } else if (data.message === 'Tài khoản đã bị xoá trước khi được kích hoạt!') {
+    //                         alert('Tài khoản của bạn bị xóa trước khi xác nhận!!!');
+    //                     } else {
+    //                         alert('System Error!!! Please try again later!');
+    //                     }
+    //                 }
+    //             } else {
+    //                 alert('System error!!! Cannot connect to database server');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error', error);
+    //         }
+    //     }
+    // }, [location, navigate]);
 
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.success) {
-                        alert('Xác nhận thành công!!! Bạn có thể đăng nhập từ bây giờ!');
-                        navigate('/login');
-                    } else {
-                        if (data.message === 'Cached data not found or expired.') {
-                            alert('Link xác nhận của bạn đã hết hạn!!!');
-                        } else if (data.message === 'Tài khoản đã bị xoá trước khi được kích hoạt!') {
-                            alert('Tài khoản của bạn bị xóa trước khi xác nhận!!!');
-                        } else {
-                            alert('System Error!!! Please try again later!');
-                        }
-                    }
-                } else {
-                    alert('System error!!! Cannot connect to database server');
-                }
-            } catch (error) {
-                console.error('Error', error);
-            }
-        }
-    }, [location, navigate]);
-
-    useEffect(() => {
-        if (token) {
-            handleVerification();
-        }
-    }, [token, handleVerification]);
+    // useEffect(() => {
+    //     if (token) {
+    //         handleVerification();
+    //     }
+    // }, [token, handleVerification]);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -127,9 +123,8 @@ function Signup() {
             if (response.ok) {
                 const data = await response.json();
                 if (data.success) {
-                    if (data.message === 'Đăng ký thành công!') {
-                        alert('Đăng ký thành công! Hãy check email để kích hoạt tài khoản!');
-                    }
+                    alert(data.message);
+                    navigate('/login');
                 } else {
                     if (data.message === 'USERNAME đã tồn tại!') {
                         alert('Đăng ký thất bại! Tên đăng nhập đã tồn tại!');
@@ -137,7 +132,7 @@ function Signup() {
                         alert('Đăng ký thất bại! Email đã được đăng ký!!!');
                     } else if (data.message === 'Số điện thoại đã được sử dụng trên tài khoản khác') {
                         alert('Đăng ký thất bại! Số điện thoại đã được đăng ký!!!');
-                    } else if (data.message === 'Email is not found !!!') {
+                    } else if (data.message === 'Đăng ký thất bại. Email không tồn tại!') {
                         alert('Đăng ký thất bại! Email cung cấp không tồn tại!');
                     }
                 }
